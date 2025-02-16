@@ -1,0 +1,171 @@
+/* =============================================
+   Estructura general: Header arriba, Sidebar a la izquierda,
+   Contenido a la derecha, ocupando el resto.
+   ============================================= */
+
+/* Ocupa toda la pantalla */
+.mis-movimientos-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* ================= HEADER ================= */
+.header {
+  width: 100%;
+  background-color: #0C7B93; /* Color verde/turquesa */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px; /* Ajusta según necesites */
+}
+
+/* Parte izquierda del header: Logo */
+.header-left .logo {
+  font-family: 'Rubik One', sans-serif;
+  font-size: 32px;
+  color: #FFFFFF;
+  line-height: 40px;
+}
+
+/* Parte derecha del header */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Separación entre ítems */
+}
+
+/* Íconos a la derecha (transacciones, tarjeta, movimientos, seguridad) */
+.header-right img {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  filter: brightness(0) invert(1); /* Para iconos blancos */
+}
+
+/* Burbuja de ayuda (audífonos + texto) */
+.help-bubble {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.help-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+/* Botón de notificaciones */
+.notification-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.notification-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Texto de bienvenida */
+.welcome-text {
+  color: #fff;
+  margin-right: 10px;
+}
+
+/* Círculo de usuario (AS) */
+.user-initials {
+  background-color: #6c757d;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* =============== BODY (Sidebar + Contenido) =============== */
+.body-container {
+  display: flex;
+  flex: 1;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 80px; /* Ajusta ancho a tu gusto */
+  background-color: #0C7B93;
+  height: calc(100vh - 60px); /* Resta la altura del header */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* 3 puntos al final */
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.sidebar-dots {
+  font-size: 24px;
+  color: #fff;
+}
+
+/* CONTENIDO PRINCIPAL */
+.main-content {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.movimientos-section h2 {
+  margin-bottom: 20px;
+}
+
+/* Filtro */
+.filter-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.filter-container label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+#producto-select {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.consultar-btn {
+  background-color: #0C7B93;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.consultar-btn:hover {
+  background-color: #095c6c;
+}
+
+/* Botón "Cargar más movimientos" */
+.load-more-btn {
+  margin-top: 20px;
+  background-color: #BFD7EA;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}

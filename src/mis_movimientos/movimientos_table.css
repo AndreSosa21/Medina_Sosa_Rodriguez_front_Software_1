@@ -1,0 +1,66 @@
+.movimientos-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.movimientos-table thead {
+  background-color: #e9ecef;
+}
+
+.movimientos-table th,
+.movimientos-table td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.movimientos-table tbody tr:hover {
+  background-color: #f1f3f5;
+}
+
+/* Descripción en azul #508CA4 */
+.descripcion {
+  color: #508CA4;
+}
+
+/* Pill de estado */
+.estado-pill {
+  padding: 5px 10px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* Estados */
+.estado-en-proceso {
+  background-color: #ffc107; /* Amarillo */
+}
+
+.estado-aprobado {
+  background-color: #28a745; /* Verde */
+}
+
+.estado-rechazado {
+  background-color: #dc3545; /* Rojo */
+}
+
+/* Botón circular de detalles (#BFD7EA) con solo imagen */
+.detalles-btn {
+  background-color: #BFD7EA;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detalles-btn img {
+  width: 20px;
+  height: 20px;
+}
