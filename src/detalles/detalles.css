@@ -100,6 +100,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    /* Distribuir uniformemente verticalmente y centrar horizontalmente */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -108,9 +109,11 @@
   }
   
   .sidebar-nav li {
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    text-align: center;
+    cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
@@ -234,7 +237,6 @@
     color: #000;
     font-weight: bold;
     border: none;
-    /* Botón de descarga: más alto verticalmente */
     padding: 16px 16px;
     cursor: pointer;
     border-radius: 20px;

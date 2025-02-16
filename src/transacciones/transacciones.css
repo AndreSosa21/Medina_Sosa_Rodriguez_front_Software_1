@@ -94,9 +94,11 @@
   }
   
   .sidebar-nav li {
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    text-align: center;
+    cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
@@ -167,7 +169,6 @@
     border-radius: 4px;
   }
   
-  /* Botón "Enviar transferencia" con mayor altura vertical */
   .enviar-btn {
     background-color: #BFD7EA;
     color: #000;
