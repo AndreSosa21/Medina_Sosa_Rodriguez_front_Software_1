@@ -87,7 +87,7 @@ const Detalles: React.FC<DetallesProps> = ({
             </li>
           </ul>
         </nav>
-        <div className="sidebar-dots">⋮</div>
+        {/* Se han eliminado los tres puntos */}
       </aside>
 
       {/* CONTENIDO PRINCIPAL */}

@@ -94,6 +94,7 @@
   }
   
   .sidebar-nav li {
+    margin: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -111,11 +112,6 @@
     height: 60px;
     object-fit: contain;
     filter: brightness(0) invert(1);
-  }
-  
-  .sidebar-dots {
-    font-size: 24px;
-    color: #fff;
   }
   
   /* CONTENIDO PRINCIPAL */

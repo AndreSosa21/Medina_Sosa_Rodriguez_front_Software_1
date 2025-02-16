@@ -55,21 +55,18 @@ const Transacciones: React.FC<TransaccionesProps> = ({
             </li>
           </ul>
         </nav>
-        <div className="sidebar-dots">⋮</div>
       </aside>
 
       {/* CONTENIDO PRINCIPAL */}
       <main className="main-content">
         <h2 className="transacciones-title">Información de la transferencia</h2>
         <hr className="separator" />
-
         <div className="form-grid">
           <div className="col">
             <label className="label-input">
               Cuenta origen
               <input type="text" className="input-field" placeholder="Ej: 1234-5678-..." />
             </label>
-
             <label className="label-input">
               Cuenta destino
               <input type="text" className="input-field" placeholder="Ej: 8765-4321-..." />
@@ -80,14 +77,12 @@ const Transacciones: React.FC<TransaccionesProps> = ({
               Tipo de cuenta
               <input type="text" className="input-field" placeholder="Ej: Ahorros" />
             </label>
-
             <label className="label-input">
               Monto
               <input type="text" className="input-field" placeholder="Ej: $10,000" />
             </label>
           </div>
         </div>
-
         <button className="enviar-btn">Enviar transferencia</button>
       </main>
     </div>

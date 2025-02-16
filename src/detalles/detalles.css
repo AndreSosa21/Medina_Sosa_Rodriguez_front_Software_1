@@ -100,7 +100,6 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    /* Distribuir uniformemente verticalmente y centrar horizontalmente */
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -109,6 +108,7 @@
   }
   
   .sidebar-nav li {
+    margin: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,11 +126,6 @@
     height: 60px;
     object-fit: contain;
     filter: brightness(0) invert(1);
-  }
-  
-  .sidebar-dots {
-    font-size: 24px;
-    color: #fff;
   }
   
   /* CONTENIDO PRINCIPAL */

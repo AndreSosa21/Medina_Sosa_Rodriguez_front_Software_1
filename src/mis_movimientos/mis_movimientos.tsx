@@ -24,7 +24,7 @@ const MisMovimientos: React.FC<MisMovimientosProps> = ({
 
   const handleProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProduct(e.target.value);
-    // La lista de movimientos permanece igual (no se actualiza al cambiar de producto)
+    // La lista de movimientos se mantiene sin cambiar al variar el producto
   };
 
   return (
@@ -51,14 +51,14 @@ const MisMovimientos: React.FC<MisMovimientosProps> = ({
       <aside className="sidebar">
         <nav className="sidebar-nav">
           <ul>
-            {/* Primer ícono: al presionar, navega a Movimientos */}
+            {/* Ícono 1: Transacciones → Navega a Movimientos */}
             <li onClick={onMovimientosClick}>
               <img src={iconTransacciones} alt="Transacciones" className="sidebar-icon" />
             </li>
             <li>
               <img src={iconTarjeta} alt="Tarjeta" className="sidebar-icon" />
             </li>
-            {/* Tercer ícono: al presionar, navega a Transacciones */}
+            {/* Ícono 3: Movimientos → Navega a Transacciones */}
             <li onClick={onTransaccionesClick}>
               <img src={iconMovimientos} alt="Movimientos" className="sidebar-icon" />
             </li>
@@ -67,7 +67,7 @@ const MisMovimientos: React.FC<MisMovimientosProps> = ({
             </li>
           </ul>
         </nav>
-        <div className="sidebar-dots">⋮</div>
+        {/* Se han eliminado los tres puntos */}
       </aside>
 
       {/* CONTENIDO PRINCIPAL */}
