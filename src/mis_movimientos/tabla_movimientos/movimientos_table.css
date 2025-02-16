@@ -2,7 +2,7 @@
   width: 100%;
   border-collapse: collapse;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .movimientos-table thead {
@@ -20,34 +20,29 @@
   background-color: #f1f3f5;
 }
 
-/* Descripción en azul #508CA4 */
 .descripcion {
   color: #508CA4;
 }
 
-/* Pill de estado */
 .estado-pill {
   padding: 5px 10px;
   border-radius: 12px;
   color: #fff;
-  font-size: 0.9rem;
   font-weight: bold;
 }
 
-/* Estados */
 .estado-en-proceso {
-  background-color: #ffc107; /* Amarillo */
+  background-color: #ffc107;
 }
 
 .estado-aprobado {
-  background-color: #28a745; /* Verde */
+  background-color: #28a745;
 }
 
 .estado-rechazado {
-  background-color: #dc3545; /* Rojo */
+  background-color: #dc3545;
 }
 
-/* Botón circular de detalles (#BFD7EA) con solo imagen */
 .detalles-btn {
   background-color: #BFD7EA;
   border: none;

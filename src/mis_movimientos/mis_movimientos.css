@@ -1,53 +1,42 @@
-/* =============================================
-   Estructura general: Header arriba, Sidebar a la izquierda,
-   Contenido a la derecha, ocupando el resto.
-   ============================================= */
-
-/* Ocupa toda la pantalla */
 .mis-movimientos-wrapper {
-  display: flex;
-  flex-direction: column;
   width: 100vw;
   height: 100vh;
-  font-family: Arial, sans-serif;
   color: #333;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  background-color: #0C7B93; /* Color verde/turquesa */
+  height: 60px;
+  background-color: #0A8754;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  height: 60px; /* Ajusta según necesites */
+  z-index: 1000;
 }
 
-/* Parte izquierda del header: Logo */
 .header-left .logo {
   font-family: 'Rubik One', sans-serif;
   font-size: 32px;
-  color: #FFFFFF;
-  line-height: 40px;
+  color: #fff;
 }
 
-/* Parte derecha del header */
 .header-right {
   display: flex;
   align-items: center;
-  gap: 15px; /* Separación entre ítems */
+  gap: 15px;
 }
 
-/* Íconos a la derecha (transacciones, tarjeta, movimientos, seguridad) */
-.header-right img {
-  width: 28px;
-  height: 28px;
+.header-icon {
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-  filter: brightness(0) invert(1); /* Para iconos blancos */
 }
 
-/* Burbuja de ayuda (audífonos + texto) */
 .help-bubble {
   display: flex;
   align-items: center;
@@ -56,31 +45,10 @@
   border-radius: 20px;
 }
 
-.help-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-}
-
-/* Botón de notificaciones */
-.notification-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.notification-btn img {
-  width: 24px;
-  height: 24px;
-}
-
-/* Texto de bienvenida */
 .welcome-text {
   color: #fff;
-  margin-right: 10px;
 }
 
-/* Círculo de usuario (AS) */
 .user-initials {
   background-color: #6c757d;
   width: 35px;
@@ -94,22 +62,54 @@
   cursor: pointer;
 }
 
-/* =============== BODY (Sidebar + Contenido) =============== */
-.body-container {
-  display: flex;
-  flex: 1;
+.notification-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 /* SIDEBAR */
 .sidebar {
-  width: 80px; /* Ajusta ancho a tu gusto */
-  background-color: #0C7B93;
-  height: calc(100vh - 60px); /* Resta la altura del header */
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 150px;
+  height: calc(100vh - 60px);
+  background-color: #004F2D;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* 3 puntos al final */
+  padding: 20px 0;
+  z-index: 900;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* Distribución uniforme */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
-  padding-bottom: 20px;
+  height: 100%;
+}
+
+.sidebar-nav li {
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-nav li:hover {
+  background-color: #508CA4;
+}
+
+.sidebar-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .sidebar-dots {
@@ -119,16 +119,16 @@
 
 /* CONTENIDO PRINCIPAL */
 .main-content {
-  flex: 1;
+  position: fixed;
+  top: 60px;
+  left: 150px;
+  width: calc(100vw - 150px);
+  height: calc(100vh - 60px);
   background-color: #f8f9fa;
   padding: 20px;
+  overflow: hidden;
 }
 
-.movimientos-section h2 {
-  margin-bottom: 20px;
-}
-
-/* Filtro */
 .filter-container {
   display: flex;
   align-items: center;
@@ -143,29 +143,27 @@
 #producto-select {
   margin-right: 10px;
   padding: 5px;
-}
-
-.consultar-btn {
-  background-color: #0C7B93;
-  color: #fff;
-  border: none;
-  padding: 6px 12px;
-  cursor: pointer;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.consultar-btn:hover {
-  background-color: #095c6c;
-}
-
-/* Botón "Cargar más movimientos" */
+/* Botón "Cargar más movimientos" más corto horizontalmente */
 .load-more-btn {
   margin-top: 20px;
   background-color: #BFD7EA;
   color: #000;
   font-weight: bold;
   border: none;
-  padding: 6px 12px;
+  padding: 6px 10px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 20px;
+  align-self: center;
+}
+
+/* Contenedor de la tabla */
+.table-container {
+  flex: 1;
+  overflow: auto;
 }

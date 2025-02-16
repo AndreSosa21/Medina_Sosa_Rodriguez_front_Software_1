@@ -1,0 +1,180 @@
+.transacciones-wrapper {
+    width: 100vw;
+    height: 100vh;
+    color: #333;
+  }
+  
+  /* HEADER */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #0A8754;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+  }
+  
+  .header-left .logo {
+    font-family: 'Rubik One', sans-serif;
+    font-size: 32px;
+    color: #fff;
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .header-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+  
+  .help-bubble {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+  
+  .welcome-text {
+    color: #fff;
+  }
+  
+  .user-initials {
+    background-color: #6c757d;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .notification-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* SIDEBAR */
+  .sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 150px;
+    height: calc(100vh - 60px);
+    background-color: #004F2D;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    z-index: 900;
+  }
+  
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .sidebar-nav li {
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidebar-nav li:hover {
+    background-color: #508CA4;
+  }
+  
+  .sidebar-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+  
+  .sidebar-dots {
+    font-size: 24px;
+    color: #fff;
+  }
+  
+  /* CONTENIDO PRINCIPAL */
+  .main-content {
+    position: fixed;
+    top: 60px;
+    left: 150px;
+    width: calc(100vw - 150px);
+    height: calc(100vh - 60px);
+    background-color: #f8f9fa;
+    padding: 20px;
+    overflow: hidden;
+  }
+  
+  .transacciones-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .separator {
+    margin-bottom: 20px;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .label-input {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .input-field {
+    margin-top: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Botón "Enviar transferencia" con mayor altura vertical */
+  .enviar-btn {
+    background-color: #BFD7EA;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    padding: 16px 16px;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+  

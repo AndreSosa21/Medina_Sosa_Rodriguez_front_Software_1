@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import './mis_movimientos.css';
-import MovimientosTable, { Movimiento } from './tabla_movimientos/movimientos_table';
+import React from 'react';
+import './Transacciones.css';
 
 import iconTransacciones from '../assets/transacciones.png';
 import iconTarjeta from '../assets/targeta.png';
@@ -9,26 +8,17 @@ import iconSeguridad from '../assets/seguridad.png';
 import iconAudifonos from '../assets/audifonos.png';
 import iconCampana from '../assets/campana.png';
 
-interface MisMovimientosProps {
-  onDetallesClick?: (mov: Movimiento) => void;
+interface TransaccionesProps {
   onMovimientosClick?: () => void;
   onTransaccionesClick?: () => void;
 }
 
-const MisMovimientos: React.FC<MisMovimientosProps> = ({
-  onDetallesClick,
+const Transacciones: React.FC<TransaccionesProps> = ({
   onMovimientosClick,
   onTransaccionesClick
 }) => {
-  const [selectedProduct, setSelectedProduct] = useState('1234');
-
-  const handleProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedProduct(e.target.value);
-    // La lista de movimientos permanece igual (no se actualiza al cambiar de producto)
-  };
-
   return (
-    <div className="mis-movimientos-wrapper">
+    <div className="transacciones-wrapper">
       {/* HEADER */}
       <header className="header">
         <div className="header-left">
@@ -51,14 +41,12 @@ const MisMovimientos: React.FC<MisMovimientosProps> = ({
       <aside className="sidebar">
         <nav className="sidebar-nav">
           <ul>
-            {/* Primer ícono: al presionar, navega a Movimientos */}
             <li onClick={onMovimientosClick}>
               <img src={iconTransacciones} alt="Transacciones" className="sidebar-icon" />
             </li>
             <li>
               <img src={iconTarjeta} alt="Tarjeta" className="sidebar-icon" />
             </li>
-            {/* Tercer ícono: al presionar, navega a Transacciones */}
             <li onClick={onTransaccionesClick}>
               <img src={iconMovimientos} alt="Movimientos" className="sidebar-icon" />
             </li>
@@ -72,27 +60,38 @@ const MisMovimientos: React.FC<MisMovimientosProps> = ({
 
       {/* CONTENIDO PRINCIPAL */}
       <main className="main-content">
-        <section className="movimientos-section">
-          <h2>Mis movimientos</h2>
-          <div className="filter-container">
-            <label htmlFor="producto-select">Producto:</label>
-            <select
-              id="producto-select"
-              value={selectedProduct}
-              onChange={handleProductChange}
-            >
-              <option value="1234">Cuenta de Ahorros *1234</option>
-              <option value="5678">Cuenta de Ahorros *5678</option>
-            </select>
+        <h2 className="transacciones-title">Información de la transferencia</h2>
+        <hr className="separator" />
+
+        <div className="form-grid">
+          <div className="col">
+            <label className="label-input">
+              Cuenta origen
+              <input type="text" className="input-field" placeholder="Ej: 1234-5678-..." />
+            </label>
+
+            <label className="label-input">
+              Cuenta destino
+              <input type="text" className="input-field" placeholder="Ej: 8765-4321-..." />
+            </label>
           </div>
-          <div className="table-container">
-            <MovimientosTable onDetallesClick={onDetallesClick} />
+          <div className="col">
+            <label className="label-input">
+              Tipo de cuenta
+              <input type="text" className="input-field" placeholder="Ej: Ahorros" />
+            </label>
+
+            <label className="label-input">
+              Monto
+              <input type="text" className="input-field" placeholder="Ej: $10,000" />
+            </label>
           </div>
-          <button className="load-more-btn">Cargar más movimientos</button>
-        </section>
+        </div>
+
+        <button className="enviar-btn">Enviar transferencia</button>
       </main>
     </div>
   );
 };
 
-export default MisMovimientos;
+export default Transacciones;
