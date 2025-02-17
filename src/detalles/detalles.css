@@ -208,7 +208,7 @@
   }
   
   /* Estado pill */
-  .estado-pill {
+  .status-pill {
     padding: 5px 10px;
     border-radius: 12px;
     color: #fff;
@@ -217,6 +217,7 @@
   
   .estado-en-proceso {
     background-color: #ffc107;
+
   }
   
   .estado-aprobado {

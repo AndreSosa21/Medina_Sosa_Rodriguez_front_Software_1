@@ -36,13 +36,13 @@ const Detalles: React.FC<DetallesProps> = ({
     );
   }
 
-  const getEstadoClass = (estado: string) => {
-    switch (estado) {
-      case 'En proceso':
+  const getstatusClass = (status: string) => {
+    switch (status) {
+      case 'inprogress':
         return 'estado-en-proceso';
-      case 'Aprobado':
+      case 'approved':
         return 'estado-aprobado';
-      case 'Rechazado':
+      case 'rejected':
         return 'estado-rechazado';
       default:
         return '';
@@ -102,18 +102,18 @@ const Detalles: React.FC<DetallesProps> = ({
         <div className="details-grid">
           <div className="col">
             <div className="detail-item">
-              <div className="detail-label">Valor</div>
-              <div className="detail-value">{movimiento.valor}</div>
+              <div className="detail-label">amount</div>
+              <div className="detail-value">{movimiento.amount}</div>
             </div>
             <div className="detail-item">
               <div className="detail-label">Canal</div>
               <div className="detail-value">{movimiento.canal}</div>
             </div>
             <div className="detail-item">
-              <div className="detail-label">Estado</div>
+              <div className="detail-label">status</div>
               <div className="detail-value">
-                <span className={`estado-pill ${getEstadoClass(movimiento.estado)}`}>
-                  {movimiento.estado}
+                <span className={`status-pill ${getstatusClass(movimiento.status)}`}>
+                  {movimiento.status}
                 </span>
               </div>
             </div>
@@ -121,12 +121,12 @@ const Detalles: React.FC<DetallesProps> = ({
           <div className="col">
             <div className="detail-item">
               <div className="detail-label">Nº de aprobación</div>
-              <div className="detail-value">{movimiento.noAprobacion}</div>
+              <div className="detail-value">{movimiento.transactionId}</div>
             </div>
             <div className="detail-item">
-              <div className="detail-label">Fecha y hora</div>
+              <div className="detail-label">date y time</div>
               <div className="detail-value">
-                {movimiento.fecha} {movimiento.hora}
+                {movimiento.date} {movimiento.time}
               </div>
             </div>
             <div className="detail-item">

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './Transacciones.css';
+import { createTransaction, getTransactions, Transaction } from '../api';
+
 
 import iconTransacciones from '../assets/transacciones.png';
 import iconTarjeta from '../assets/targeta.png';
@@ -42,15 +44,19 @@ const Transacciones: React.FC<TransaccionesProps> = ({
     setCuentaDestino(formatted);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Aquí se podría enviar la información al backend.
-    alert(`Transferencia enviada:
-Cuenta origen: ${cuentaOrigen}
-Cuenta destino: ${cuentaDestino}
-Tipo de cuenta: ${tipoCuenta}
-Monto: ${monto}`);
-  };
+
+    const transactionData = {
+        sourceAccount: cuentaOrigen,
+        destinationAccount: cuentaDestino,
+        accountType: tipoCuenta,
+        amount: parseFloat(monto),
+    };
+
+    const response = await createTransaction(transactionData);
+    alert(response.message || 'Transacción enviada');
+};
 
   return (
     <div className="transacciones-wrapper">
@@ -136,7 +142,7 @@ Monto: ${monto}`);
                 required
               >
                 <option value="">Seleccione tipo</option>
-                <option value="ahorro">Ahorros</option>
+                <option value="ahorros">ahorros</option>
                 <option value="corriente">Corriente</option>
               </select>
             </label>

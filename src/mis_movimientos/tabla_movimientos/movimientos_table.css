@@ -24,23 +24,29 @@
   color: #508CA4;
 }
 
-.estado-pill {
+.status-pill {
   padding: 5px 10px;
   border-radius: 12px;
   color: #fff;
   font-weight: bold;
 }
 
-.estado-en-proceso {
-  background-color: #ffc107;
-}
-
 .estado-aprobado {
-  background-color: #28a745;
+  background-color: #28a745; /* Verde */
+  border: 1px solid #218838;
 }
 
+/* Estado En Proceso (Amarillo) */
+.estado-en-proceso {
+  background-color: #ffc107; /* Amarillo */
+  color: black;
+  border: 1px solid #e0a800;
+}
+
+/* Estado Rechazado (Rojo) */
 .estado-rechazado {
-  background-color: #dc3545;
+  background-color: #dc3545; /* Rojo */
+  border: 1px solid #c82333;
 }
 
 .detalles-btn {
@@ -59,3 +65,18 @@
   width: 20px;
   height: 20px;
 }
+.rejection-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.rejection-text {
+  background-color: #ffdddd;
+  color: #b22222;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
