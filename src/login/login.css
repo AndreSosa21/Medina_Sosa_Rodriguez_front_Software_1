@@ -1,0 +1,297 @@
+/* Reset global */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Contenedor general */
+  .login-container {
+    display: flex;
+    height: 100vh;
+    background-color: #fff;
+  }
+  
+  /* Sección izquierda (logo y texto) */
+  .left-section {
+    background-color: #0a8754;
+    color: #fff;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .left-section .logo {
+    margin-top: 30px;
+  }
+  
+  .left-section .logo img {
+    width: 70px;
+    margin-bottom: 20px;
+  }
+  
+  .left-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .left-section p {
+    font-size: 1.1rem;
+    margin-top: 10px;
+  }
+  
+  /* Sección derecha (formulario de login) */
+  .right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+  }
+  
+  .input-container {
+    margin-bottom: 20px;
+  }
+  
+  .input-container label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  .input-with-icon {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 5px;
+  }
+  
+  .input-with-icon input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+  }
+  
+  .input-with-icon .input-icon {
+    width: 20px;
+    margin-right: 10px;
+  }
+  
+  .input-with-icon input:focus {
+    border: 1px solid #0a8754;
+  }
+  
+  /* Botón de enviar */
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #0a8754;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0a6c4e;
+  }
+  
+  /* Enlace para cambiar entre login y registro */
+  .switch-form {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .switch-link {
+    font-size: 1rem;
+    color: #0a8754;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  .switch-link:hover {
+    color: #084e31;
+  }
+  
+  /* Texto de ayuda */
+  .help-text {
+    text-align: center;
+    margin-top: 20px;
+  }
+  /* Reset global */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Contenedor general */
+  .login-container {
+    display: flex;
+    height: 100vh;
+    background-color: #fff;
+  }
+  
+  /* Sección izquierda (logo y texto) */
+  .left-section {
+    background-color: #0a8754;
+    color: #fff;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .left-section .logo {
+    margin-top: 30px;
+  }
+  
+  .left-section .logo img {
+    width: 70px;
+    margin-bottom: 20px;
+  }
+  
+  .left-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .left-section p {
+    font-size: 1.1rem;
+    margin-top: 10px;
+  }
+  
+  /* Sección derecha (formulario de login) */
+  .right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+  }
+  
+  .input-container {
+    margin-bottom: 20px;
+  }
+  
+  .input-with-icon {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 30px; /* Bordes más redondeados */
+    padding: 8px;
+  }
+  
+  .input-with-icon input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    border-radius: 30px; /* Bordes redondeados */
+  }
+  
+  .input-with-icon .input-icon {
+    width: 20px;
+    margin-right: 10px;
+  }
+  
+  .input-with-icon input:focus {
+    border: 1px solid #0a8754;
+  }
+  
+  /* Botón de enviar */
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #0a8754;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px; /* Bordes redondeados */
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0a6c4e;
+  }
+  
+  /* Enlace para cambiar entre login y registro */
+  .switch-form {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .switch-link {
+    font-size: 1rem;
+    color: #0a8754;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  
+  .switch-link:hover {
+    color: #084e31;
+  }
+  
+  /* Texto de ayuda */
+  .help-text {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .help-text span {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  .help-text span {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  

@@ -24,29 +24,29 @@
   color: #508CA4;
 }
 
+/* Estado pill */
 .status-pill {
-  padding: 5px 10px;
-  border-radius: 12px;
-  color: #fff;
+  display: inline-block;
+  padding: 6px 20px; /* Hace que el fondo sea más largo que el texto */
+  border-radius: 30px; /* Bordes redondeados más visibles */
   font-weight: bold;
+  text-align: center;
+  color: black; /* Letra negra */
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+/* Clases para el color de fondo dependiendo del estado */
+.estado-en-proceso {
+  background-color: #ffc107; /* Amarillo */
 }
 
 .estado-aprobado {
   background-color: #28a745; /* Verde */
-  border: 1px solid #218838;
 }
 
-/* Estado En Proceso (Amarillo) */
-.estado-en-proceso {
-  background-color: #ffc107; /* Amarillo */
-  color: black;
-  border: 1px solid #e0a800;
-}
-
-/* Estado Rechazado (Rojo) */
 .estado-rechazado {
   background-color: #dc3545; /* Rojo */
-  border: 1px solid #c82333;
 }
 
 .detalles-btn {
@@ -65,18 +65,3 @@
   width: 20px;
   height: 20px;
 }
-.rejection-message {
-  color: #dc3545;
-  font-size: 14px;
-  margin-top: 5px;
-  font-weight: bold;
-}
-
-.rejection-text {
-  background-color: #ffdddd;
-  color: #b22222;
-  padding: 10px;
-  border-radius: 5px;
-  font-weight: bold;
-}
-

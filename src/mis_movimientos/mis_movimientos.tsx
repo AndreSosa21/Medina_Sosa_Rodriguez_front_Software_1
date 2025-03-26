@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './mis_movimientos.css';
 import MovimientosTable, { Movimiento } from './tabla_movimientos/movimientos_table';
-import { getTransactions } from '../api'; // Importamos la API para obtener transacciones
 
 import iconTransacciones from '../assets/transacciones.png';
 import iconTarjeta from '../assets/targeta.png';
@@ -9,96 +8,77 @@ import iconMovimientos from '../assets/movimientos.png';
 import iconSeguridad from '../assets/seguridad.png';
 import iconAudifonos from '../assets/audifonos.png';
 import iconCampana from '../assets/campana.png';
+import { useNavigate } from 'react-router-dom';
 
-interface MisMovimientosProps {
-  onDetallesClick?: (mov: Movimiento) => void;
-  onMovimientosClick?: () => void;
-  onTransaccionesClick?: () => void;
-}
-
-const MisMovimientos: React.FC<MisMovimientosProps> = ({
-  onDetallesClick,
-  onMovimientosClick,
-  onTransaccionesClick
-}) => {
+const MisMovimientos: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState('1234');
-  const [transactions, setTransactions] = useState<Movimiento[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [movimientosData, setMovimientosData] = useState<Movimiento[]>([]);
+  const navigate = useNavigate();
 
-  // ✅ Función para generar la descripción de la transacción
-  const generarDescripcion = (transaction: Movimiento) => {
-    console.log("🔍 Procesando transacción:", transaction); // ✅ Verifica la estructura en consola
+  const handleProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedProduct(e.target.value);
+  };
 
-    if (!transaction.destinationAccount) {
-        return "Destino no especificado"; // ✅ Evita errores si destinationAccount es undefined
-    }
-
-    if (transaction.sourceAccount.startsWith("1234")) {
-        return `Transferencia enviada a ${transaction.destinationAccount}`;
-    } else if (transaction.destinationAccount.startsWith("1234")) {
-        return `Depósito recibido de ${transaction.sourceAccount}`;
-    } else if (transaction.status === "approved") {
-        return "Pago exitoso desde tu cuenta";
-    } else if (transaction.status === "rejected") {
-        return "Transacción rechazada por el banco";
-    } else {
-        return "Transacción en proceso de validación";
-    }
+  // Función para simular la carga de movimientos dependiendo del producto
+  const fetchMovimientos = (producto: string) => {
+    // Simulando la carga de movimientos según el producto
+    const movimientos: Movimiento[] = producto === '1234'
+      ? [
+          {
+            fecha: '12/02/2025',
+            hora: '8:00am',
+            valor: '$10,000',
+            descripcion: 'Transferencia a Nequi',
+            estado: 'En proceso',
+            noAprobacion: '6758435-1',
+            canal: 'Info. no disponible',
+          },
+          {
+            fecha: '11/02/2025',
+            hora: '9:15am',
+            valor: '$10,000',
+            descripcion: 'Transferencia a Nequi',
+            estado: 'Aprobado',
+            noAprobacion: '6758435-2',
+            canal: 'Info. no disponible',
+          },
+        ]
+      : [
+          {
+            fecha: '08/02/2025',
+            hora: '10:00am',
+            valor: '$5,000',
+            descripcion: 'Pago de tarjeta',
+            estado: 'Rechazado',
+            noAprobacion: '6758435-3',
+            canal: 'Info. no disponible',
+          },
+          {
+            fecha: '07/02/2025',
+            hora: '3:30pm',
+            valor: '$20,000',
+            descripcion: 'Pago de tarjeta',
+            estado: 'Aprobado',
+            noAprobacion: '6758435-4',
+            canal: 'Info. no disponible',
+          },
+        ];
+    setMovimientosData(movimientos);
   };
 
   useEffect(() => {
-    const fetchTransactions = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const data = await getTransactions();
-            
-            console.log("📢 Datos obtenidos del backend:", data.transactions); // ✅ Verifica que llegan datos
+    // Cargar los movimientos cuando se cambie el producto
+    fetchMovimientos(selectedProduct);
+  }, [selectedProduct]);
 
-            if (!data.transactions || data.transactions.length === 0) {
-                console.log("❌ No hay transacciones recibidas.");
-                return;
-            }
+  const handleDetallesRedirect = (mov: Movimiento) => {
+    // Redirigir a la página de detalles con el id del movimiento
+    navigate(`/detalles/${mov.noAprobacion}`, { state: { movimiento: mov } });
+  };
 
-            console.log("🔄 Filtrando transacciones por cuenta:", selectedProduct); // ✅ Verifica el valor de `selectedProduct`
-
-            const filteredTransactions = data.transactions
-                .filter((transaction: Movimiento) => {
-                    const lastFourDigits = transaction.sourceAccount.slice(0,4); // 🔄 Extrae los últimos 4 dígitos de `sourceAccount`
-                    console.log(`🔍 Filtrando: ${lastFourDigits} == ${selectedProduct}`); // ✅ Verifica comparación
-                    return lastFourDigits === selectedProduct;
-                })
-                .map((transaction: Movimiento) => {
-                    console.log("🛠 Generando descripción para TXN:", transaction.transactionId); // ✅ Verifica que `map()` ahora se ejecuta
-
-                    const descripcionGenerada = generarDescripcion(transaction);
-                    console.log("📌 Descripción generada:", descripcionGenerada); // ✅ Verifica que la descripción ahora se genera
-
-                    return {
-                        ...transaction,
-                        descripcion: descripcionGenerada
-                    };
-                });
-
-            console.log("✅ Transacciones con descripción:", filteredTransactions); // ✅ Verifica si `descripcion` está en las transacciones
-
-            setTransactions(filteredTransactions);
-            setTransactions([]); // Reseteamos temporalmente
-            setTimeout(() => setTransactions(filteredTransactions), 0); // Volvemos a cargar los datos
-
-        } catch (err) {
-            setError('Error al cargar los movimientos. Intenta nuevamente.');
-            console.error('Error fetching transactions:', err);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    fetchTransactions();
-}, [selectedProduct]);
-
-
+  const handleTransaccionesRedirect = () => {
+    navigate('/transacciones');
+  };
 
   return (
     <div className="mis-movimientos-wrapper">
@@ -124,13 +104,13 @@ const MisMovimientos: React.FC<MisMovimientosProps> = ({
       <aside className="sidebar">
         <nav className="sidebar-nav">
           <ul>
-            <li onClick={onMovimientosClick}>
+            <li onClick={handleTransaccionesRedirect}>
               <img src={iconTransacciones} alt="Transacciones" className="sidebar-icon" />
             </li>
             <li>
               <img src={iconTarjeta} alt="Tarjeta" className="sidebar-icon" />
             </li>
-            <li onClick={onTransaccionesClick}>
+            <li onClick={() => navigate('/movimientos')}>
               <img src={iconMovimientos} alt="Movimientos" className="sidebar-icon" />
             </li>
             <li>
@@ -149,24 +129,15 @@ const MisMovimientos: React.FC<MisMovimientosProps> = ({
             <select
               id="producto-select"
               value={selectedProduct}
-              onChange={(e) => setSelectedProduct(e.target.value)}
+              onChange={handleProductChange}
             >
               <option value="1234">Cuenta de Ahorros *1234</option>
               <option value="5678">Cuenta de Ahorros *5678</option>
             </select>
           </div>
-
-          {loading ? (
-            <p>Cargando movimientos...</p>
-          ) : error ? (
-            <p className="error-message">{error}</p>
-          ) : (
-            <div className="table-container">
-              <MovimientosTable data={transactions} onDetallesClick={onDetallesClick} />
-            </div>
-          )}
-
-          <button className="load-more-btn">Cargar más movimientos</button>
+          <div className="table-container">
+            <MovimientosTable data={movimientosData} onDetallesClick={handleDetallesRedirect} />
+          </div>
         </section>
       </main>
     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import './Detalles.css';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import iconTransacciones from '../assets/transacciones.png';
 import iconTarjeta from '../assets/targeta.png';
@@ -8,23 +9,36 @@ import iconSeguridad from '../assets/seguridad.png';
 import iconAudifonos from '../assets/audifonos.png';
 import iconCampana from '../assets/campana.png';
 
-import { Movimiento } from '../mis_movimientos/tabla_movimientos/movimientos_table';
-
 interface DetallesProps {
-  movimiento: Movimiento | null;
   onBack?: () => void;
   onMovimientosClick?: () => void;
   onTransaccionesClick?: () => void;
 }
 
 const Detalles: React.FC<DetallesProps> = ({
-  movimiento,
   onBack,
   onMovimientosClick,
-  onTransaccionesClick
+  onTransaccionesClick,
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const movimiento = location.state?.movimiento; // Obtiene el movimiento desde el estado
+
   const handleBack = () => {
-    if (onBack) onBack();
+    navigate('/movimientos'); // Redirige a la página de movimientos
+  };
+
+  const getStatusClass = (status: string) => {
+    switch (status) {
+      case 'En proceso':
+        return 'estado-en-proceso';
+      case 'Aprobado':
+        return 'estado-aprobado';
+      case 'Rechazado':
+        return 'estado-rechazado';
+      default:
+        return '';
+    }
   };
 
   if (!movimiento) {
@@ -35,19 +49,6 @@ const Detalles: React.FC<DetallesProps> = ({
       </div>
     );
   }
-
-  const getstatusClass = (status: string) => {
-    switch (status) {
-      case 'inprogress':
-        return 'estado-en-proceso';
-      case 'approved':
-        return 'estado-aprobado';
-      case 'rejected':
-        return 'estado-rechazado';
-      default:
-        return '';
-    }
-  };
 
   return (
     <div className="detalles-wrapper">
@@ -87,7 +88,6 @@ const Detalles: React.FC<DetallesProps> = ({
             </li>
           </ul>
         </nav>
-        {/* Se han eliminado los tres puntos */}
       </aside>
 
       {/* CONTENIDO PRINCIPAL */}
@@ -102,18 +102,18 @@ const Detalles: React.FC<DetallesProps> = ({
         <div className="details-grid">
           <div className="col">
             <div className="detail-item">
-              <div className="detail-label">amount</div>
-              <div className="detail-value">{movimiento.amount}</div>
+              <div className="detail-label">Valor</div>
+              <div className="detail-value">{movimiento.valor}</div>
             </div>
             <div className="detail-item">
               <div className="detail-label">Canal</div>
               <div className="detail-value">{movimiento.canal}</div>
             </div>
             <div className="detail-item">
-              <div className="detail-label">status</div>
+              <div className="detail-label">Estado</div>
               <div className="detail-value">
-                <span className={`status-pill ${getstatusClass(movimiento.status)}`}>
-                  {movimiento.status}
+                <span className={`status-pill ${getStatusClass(movimiento.estado)}`}>
+                  {movimiento.estado}
                 </span>
               </div>
             </div>
@@ -121,12 +121,12 @@ const Detalles: React.FC<DetallesProps> = ({
           <div className="col">
             <div className="detail-item">
               <div className="detail-label">Nº de aprobación</div>
-              <div className="detail-value">{movimiento.transactionId}</div>
+              <div className="detail-value">{movimiento.noAprobacion}</div>
             </div>
             <div className="detail-item">
-              <div className="detail-label">date y time</div>
+              <div className="detail-label">Fecha y hora</div>
               <div className="detail-value">
-                {movimiento.date} {movimiento.time}
+                {movimiento.fecha} {movimiento.hora}
               </div>
             </div>
             <div className="detail-item">

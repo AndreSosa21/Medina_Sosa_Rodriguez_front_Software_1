@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import './Transacciones.css';
-import { createTransaction, getTransactions, Transaction } from '../api';
-
 
 import iconTransacciones from '../assets/transacciones.png';
 import iconTarjeta from '../assets/targeta.png';
@@ -9,29 +7,19 @@ import iconMovimientos from '../assets/movimientos.png';
 import iconSeguridad from '../assets/seguridad.png';
 import iconAudifonos from '../assets/audifonos.png';
 import iconCampana from '../assets/campana.png';
+import { useNavigate } from 'react-router-dom';
 
-interface TransaccionesProps {
-  onMovimientosClick?: () => void;
-  onTransaccionesClick?: () => void;
-}
-
-const Transacciones: React.FC<TransaccionesProps> = ({
-  onMovimientosClick,
-  onTransaccionesClick
-}) => {
-  // Estados para los campos del formulario
+const Transacciones: React.FC = () => {
   const [cuentaOrigen, setCuentaOrigen] = useState('');
   const [cuentaDestino, setCuentaDestino] = useState('');
   const [tipoCuenta, setTipoCuenta] = useState('');
   const [monto, setMonto] = useState('');
+  const navigate = useNavigate();
 
   // Lista de cuentas del usuario (ejemplo)
-  const userAccounts = [
-    '1234-5678-9012-3456',
-    '9876-5432-1098-7654'
-  ];
+  const userAccounts = ['1234-5678-9012-3456', '9876-5432-1098-7654'];
 
-  // Función para formatear la cuenta destino: elimina todo lo que no sea dígito y agrega guiones cada 4 dígitos
+  // Función para formatear la cuenta destino
   const formatCuentaDestino = (value: string) => {
     const digits = value.replace(/\D/g, '');
     const truncated = digits.slice(0, 16);
@@ -44,19 +32,10 @@ const Transacciones: React.FC<TransaccionesProps> = ({
     setCuentaDestino(formatted);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const transactionData = {
-        sourceAccount: cuentaOrigen,
-        destinationAccount: cuentaDestino,
-        accountType: tipoCuenta,
-        amount: parseFloat(monto),
-    };
-
-    const response = await createTransaction(transactionData);
-    alert(response.message || 'Transacción enviada');
-};
+  // Función para redirigir a la página de Mis Movimientos
+  const handleMisMovimientosClick = () => {
+    navigate('/movimientos');
+  };
 
   return (
     <div className="transacciones-wrapper">
@@ -82,13 +61,15 @@ const Transacciones: React.FC<TransaccionesProps> = ({
       <aside className="sidebar">
         <nav className="sidebar-nav">
           <ul>
-            <li onClick={onMovimientosClick}>
+            {/* Ícono 1: Transacciones → Navega a Transacciones */}
+            <li onClick={() => navigate('/transacciones')}>
               <img src={iconTransacciones} alt="Transacciones" className="sidebar-icon" />
             </li>
             <li>
               <img src={iconTarjeta} alt="Tarjeta" className="sidebar-icon" />
             </li>
-            <li onClick={onTransaccionesClick}>
+            {/* Ícono 3: Movimientos → Navega a Mis Movimientos */}
+            <li onClick={handleMisMovimientosClick}>
               <img src={iconMovimientos} alt="Movimientos" className="sidebar-icon" />
             </li>
             <li>
@@ -102,7 +83,7 @@ const Transacciones: React.FC<TransaccionesProps> = ({
       <main className="main-content">
         <h2 className="transacciones-title">Información de la transferencia</h2>
         <hr className="separator" />
-        <form className="form-grid" onSubmit={handleSubmit}>
+        <form className="form-grid">
           <div className="col">
             <label className="label-input">
               Cuenta origen
@@ -142,7 +123,7 @@ const Transacciones: React.FC<TransaccionesProps> = ({
                 required
               >
                 <option value="">Seleccione tipo</option>
-                <option value="ahorros">ahorros</option>
+                <option value="ahorro">Ahorros</option>
                 <option value="corriente">Corriente</option>
               </select>
             </label>

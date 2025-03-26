@@ -86,7 +86,6 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  /* Distribuir uniformemente verticalmente y centrar horizontalmente */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -100,7 +99,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  text-align: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -115,8 +113,6 @@
   object-fit: contain;
   filter: brightness(0) invert(1);
 }
-
-/* Se eliminan los estilos de .sidebar-dots */
 
 /* CONTENIDO PRINCIPAL */
 .main-content {

@@ -3,31 +3,28 @@ import './movimientos_table.css';
 import iconDetalles from '../../assets/detalles.png';
 
 export interface Movimiento {
-  transactionId: string;
-  sourceAccount: string;
-  destinationAccount: string;
-  date: string;
-  time: string;
-  amount: string;
-  descripcion?: string;
-  status: string;
-  canal?: string;
-  
+  fecha: string;
+  hora: string;
+  valor: string;
+  descripcion: string;
+  estado: string;
+  noAprobacion: string;
+  canal: string;
 }
 
 interface MovimientosTableProps {
   data: Movimiento[];
-  onDetallesClick?: (mov: Movimiento) => void;
+  onDetallesClick: (mov: Movimiento) => void;
 }
 
 const MovimientosTable: React.FC<MovimientosTableProps> = ({ data, onDetallesClick }) => {
-  const getStatusClass = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'inprogress':
+  const getEstadoClass = (estado: string) => {
+    switch (estado) {
+      case 'En proceso':
         return 'estado-en-proceso';
-      case 'approved':
+      case 'Aprobado':
         return 'estado-aprobado';
-      case 'rejected':
+      case 'Rechazado':
         return 'estado-rechazado';
       default:
         return '';
@@ -38,39 +35,34 @@ const MovimientosTable: React.FC<MovimientosTableProps> = ({ data, onDetallesCli
     <table className="movimientos-table">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Amount</th>
+          <th>Fecha</th>
+          <th>Valor</th>
           <th>Descripción</th>
-          <th>Status</th>
+          <th>Estado</th>
           <th>Detalles</th>
         </tr>
       </thead>
       <tbody>
-        {data.length === 0 ? (
-          <tr>
-            <td colSpan={5} className="no-data">No hay transacciones registradas.</td>
+        {data.map((mov, idx) => (
+          <tr key={idx}>
+            <td>{mov.fecha}</td>
+            <td>{mov.valor}</td>
+            <td className="descripcion">{mov.descripcion}</td>
+            <td>
+              <span className={`status-pill ${getEstadoClass(mov.estado)}`}>
+                {mov.estado}
+              </span>
+            </td>
+            <td>
+              <button
+                className="detalles-btn"
+                onClick={() => onDetallesClick(mov)}
+              >
+                <img src={iconDetalles} alt="Detalles" />
+              </button>
+            </td>
           </tr>
-        ) : (
-          data.map((mov, idx) => (
-            <tr key={idx}>
-              <td>{mov.date}</td>
-              <td>{mov.amount}</td>
-              <td className="descripcion">
-                {mov.descripcion ? mov.descripcion : "Sin descripción"}
-              </td>
-              <td>
-                <span className={`status-pill ${getStatusClass(mov.status)}`}>
-                  {mov.status}
-                </span>
-              </td>
-              <td>
-                <button className="detalles-btn" onClick={() => onDetallesClick?.(mov)}>
-                  <img src={iconDetalles} alt="Detalles" />
-                </button>
-              </td>
-            </tr>
-          ))
-        )}
+        ))}
       </tbody>
     </table>
   );

@@ -1,0 +1,73 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .register-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+  }
+  
+  .register-logo {
+    width: 60px;
+    margin-bottom: 10px;
+  }
+  
+  .register-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0a8754;
+  }
+  
+  .register-slogan {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .input-icon {
+    width: 20px;
+    margin-right: 10px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-left: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .register-btn, .login-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #0a8754;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .login-btn {
+    background-color: #ff6f61;
+  }
+  
+  .register-btn:hover, .login-btn:hover {
+    background-color: #0a7d4e;
+  }
+  

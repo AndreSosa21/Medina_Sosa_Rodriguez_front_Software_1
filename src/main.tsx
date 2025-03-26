@@ -1,64 +1,24 @@
-import { StrictMode, useState } from 'react';
-import { createRoot } from 'react-dom/client';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
-
+import Login from './login/login';
+import Register from './register/register';
+import Transacciones from './transacciones/transacciones';
 import MisMovimientos from './mis_movimientos/mis_movimientos';
 import Detalles from './detalles/detalles';
-import Transacciones from './transacciones/transacciones';
-import { Movimiento } from './mis_movimientos/tabla_movimientos/movimientos_table';
 
-type Screen = 'movimientos' | 'detalles' | 'transacciones';
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-function App() {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('movimientos');
-  const [selectedMovimiento, setSelectedMovimiento] = useState<Movimiento | null>(null);
-
-  const handleShowMovimientos = () => {
-    setCurrentScreen('movimientos');
-  };
-
-  const handleShowDetalles = (mov: Movimiento) => {
-    setSelectedMovimiento(mov);
-    setCurrentScreen('detalles');
-  };
-
-  const handleShowTransacciones = () => {
-    setCurrentScreen('transacciones');
-  };
-
-  if (currentScreen === 'movimientos') {
-    return (
-      <StrictMode>
-        <MisMovimientos
-          onDetallesClick={handleShowDetalles}
-          onMovimientosClick={handleShowMovimientos}
-          onTransaccionesClick={handleShowTransacciones}
-        />
-      </StrictMode>
-    );
-  }
-
-  if (currentScreen === 'detalles') {
-    return (
-      <StrictMode>
-        <Detalles
-          movimiento={selectedMovimiento}
-          onBack={handleShowMovimientos}
-          onMovimientosClick={handleShowMovimientos}
-          onTransaccionesClick={handleShowTransacciones}
-        />
-      </StrictMode>
-    );
-  }
-
-  return (
-    <StrictMode>
-      <Transacciones
-        onMovimientosClick={handleShowMovimientos}
-        onTransaccionesClick={handleShowTransacciones}
-      />
-    </StrictMode>
-  );
-}
-
-createRoot(document.getElementById('root')!).render(<App />);
+root.render(
+  <Router>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/transacciones" element={<Transacciones />} />
+      <Route path="/movimientos" element={<MisMovimientos />} />
+      {/* Ruta para Detalles del Movimiento */}
+      <Route path="/detalles/:id" element={<Detalles />} />
+    </Routes>
+  </Router>
+);
