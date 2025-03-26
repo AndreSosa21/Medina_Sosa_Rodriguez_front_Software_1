@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 const MisMovimientos: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState('1234');
   const [movimientosData, setMovimientosData] = useState<Movimiento[]>([]);
+  const [profileMenuVisible, setProfileMenuVisible] = useState(false);
   const navigate = useNavigate();
 
   const handleProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -21,7 +22,6 @@ const MisMovimientos: React.FC = () => {
 
   // Función para simular la carga de movimientos dependiendo del producto
   const fetchMovimientos = (producto: string) => {
-    // Simulando la carga de movimientos según el producto
     const movimientos: Movimiento[] = producto === '1234'
       ? [
           {
@@ -67,17 +67,20 @@ const MisMovimientos: React.FC = () => {
   };
 
   useEffect(() => {
-    // Cargar los movimientos cuando se cambie el producto
     fetchMovimientos(selectedProduct);
   }, [selectedProduct]);
 
   const handleDetallesRedirect = (mov: Movimiento) => {
-    // Redirigir a la página de detalles con el id del movimiento
     navigate(`/detalles/${mov.noAprobacion}`, { state: { movimiento: mov } });
   };
 
   const handleTransaccionesRedirect = () => {
     navigate('/transacciones');
+  };
+
+  const handleLogOut = () => {
+    localStorage.removeItem('token');
+    navigate('/');
   };
 
   return (
@@ -89,6 +92,19 @@ const MisMovimientos: React.FC = () => {
         </div>
         <div className="header-right">
           <span className="welcome-text">Bienvenidx, Andrea Sosa</span>
+          <div className="profile-menu">
+            <div
+              className="user-initials"
+              onClick={() => setProfileMenuVisible(!profileMenuVisible)}
+            >
+              AS
+            </div>
+            {profileMenuVisible && (
+              <div className="profile-dropdown">
+                <button onClick={handleLogOut}>Cerrar sesión</button>
+              </div>
+            )}
+          </div>
           <div className="help-bubble">
             <img src={iconAudifonos} alt="Audífonos" className="header-icon" />
             <span>¿Necesitas ayuda?</span>
@@ -96,7 +112,6 @@ const MisMovimientos: React.FC = () => {
           <button className="notification-btn">
             <img src={iconCampana} alt="Notificaciones" className="header-icon" />
           </button>
-          <div className="user-initials">AS</div>
         </div>
       </header>
 

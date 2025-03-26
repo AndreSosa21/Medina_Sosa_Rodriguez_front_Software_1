@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Detalles.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -22,10 +22,17 @@ const Detalles: React.FC<DetallesProps> = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const movimiento = location.state?.movimiento; // Obtiene el movimiento desde el estado
+  const [profileMenuVisible, setProfileMenuVisible] = useState(false);
+  const movimiento = location.state?.movimiento; 
 
   const handleBack = () => {
-    navigate('/movimientos'); // Redirige a la página de movimientos
+    navigate('/movimientos');
+  };
+
+  const handleLogOut = () => {
+    // Aquí puedes eliminar el token de sesión si es necesario
+    localStorage.removeItem('token');
+    navigate('/'); // Redirigir al Login
   };
 
   const getStatusClass = (status: string) => {
@@ -59,6 +66,19 @@ const Detalles: React.FC<DetallesProps> = ({
         </div>
         <div className="header-right">
           <span className="welcome-text">Bienvenidx, Andrea Sosa</span>
+          <div className="profile-menu">
+            <div
+              className="user-initials"
+              onClick={() => setProfileMenuVisible(!profileMenuVisible)}
+            >
+              AS
+            </div>
+            {profileMenuVisible && (
+              <div className="profile-dropdown">
+                <button onClick={handleLogOut}>Cerrar sesión</button>
+              </div>
+            )}
+          </div>
           <div className="help-bubble">
             <img src={iconAudifonos} alt="Audífonos" className="header-icon" />
             <span>¿Necesitas ayuda?</span>
@@ -66,7 +86,6 @@ const Detalles: React.FC<DetallesProps> = ({
           <button className="notification-btn">
             <img src={iconCampana} alt="Notificaciones" className="header-icon" />
           </button>
-          <div className="user-initials">AS</div>
         </div>
       </header>
 

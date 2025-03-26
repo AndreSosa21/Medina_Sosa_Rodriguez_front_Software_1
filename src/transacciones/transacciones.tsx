@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Transacciones.css';
+import { useNavigate } from 'react-router-dom';
 
 import iconTransacciones from '../assets/transacciones.png';
 import iconTarjeta from '../assets/targeta.png';
@@ -7,13 +8,13 @@ import iconMovimientos from '../assets/movimientos.png';
 import iconSeguridad from '../assets/seguridad.png';
 import iconAudifonos from '../assets/audifonos.png';
 import iconCampana from '../assets/campana.png';
-import { useNavigate } from 'react-router-dom';
 
 const Transacciones: React.FC = () => {
   const [cuentaOrigen, setCuentaOrigen] = useState('');
   const [cuentaDestino, setCuentaDestino] = useState('');
   const [tipoCuenta, setTipoCuenta] = useState('');
   const [monto, setMonto] = useState('');
+  const [profileMenuVisible, setProfileMenuVisible] = useState(false); // Estado para el menú desplegable
   const navigate = useNavigate();
 
   // Lista de cuentas del usuario (ejemplo)
@@ -37,6 +38,12 @@ const Transacciones: React.FC = () => {
     navigate('/movimientos');
   };
 
+  // Función para manejar el cierre de sesión
+  const handleLogOut = () => {
+    localStorage.removeItem('token'); // Elimina el token si es necesario
+    navigate('/'); // Redirige al Login
+  };
+
   return (
     <div className="transacciones-wrapper">
       {/* HEADER */}
@@ -46,6 +53,19 @@ const Transacciones: React.FC = () => {
         </div>
         <div className="header-right">
           <span className="welcome-text">Bienvenidx, Andrea Sosa</span>
+          <div className="profile-menu">
+            <div
+              className="user-initials"
+              onClick={() => setProfileMenuVisible(!profileMenuVisible)} // Toggle de visibilidad del menú
+            >
+              AS
+            </div>
+            {profileMenuVisible && (
+              <div className="profile-dropdown">
+                <button onClick={handleLogOut}>Cerrar sesión</button> {/* Opción para cerrar sesión */}
+              </div>
+            )}
+          </div>
           <div className="help-bubble">
             <img src={iconAudifonos} alt="Audífonos" className="header-icon" />
             <span>¿Necesitas ayuda?</span>
@@ -53,7 +73,6 @@ const Transacciones: React.FC = () => {
           <button className="notification-btn">
             <img src={iconCampana} alt="Notificaciones" className="header-icon" />
           </button>
-          <div className="user-initials">AS</div>
         </div>
       </header>
 
@@ -61,14 +80,12 @@ const Transacciones: React.FC = () => {
       <aside className="sidebar">
         <nav className="sidebar-nav">
           <ul>
-            {/* Ícono 1: Transacciones → Navega a Transacciones */}
             <li onClick={() => navigate('/transacciones')}>
               <img src={iconTransacciones} alt="Transacciones" className="sidebar-icon" />
             </li>
             <li>
               <img src={iconTarjeta} alt="Tarjeta" className="sidebar-icon" />
             </li>
-            {/* Ícono 3: Movimientos → Navega a Mis Movimientos */}
             <li onClick={handleMisMovimientosClick}>
               <img src={iconMovimientos} alt="Movimientos" className="sidebar-icon" />
             </li>

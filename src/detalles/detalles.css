@@ -238,3 +238,45 @@ html, body {
   cursor: pointer;
   border-radius: 20px;
 }
+
+.profile-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.user-initials {
+  background-color: #6c757d;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  z-index: 1;
+}
+
+.profile-dropdown button {
+  background-color: #f1f1f1;
+  color: black;
+  padding: 12px 16px;
+  text-align: left;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.profile-dropdown button:hover {
+  background-color: #ddd;
+}
