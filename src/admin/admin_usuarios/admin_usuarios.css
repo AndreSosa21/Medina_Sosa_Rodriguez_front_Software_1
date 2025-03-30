@@ -1,0 +1,26 @@
+/* src/admin/admin_usuarios/admin_usuarios.css */
+.admin-usuarios-wrapper {
+    padding: 20px;
+  }
+  
+  .admin-usuarios-wrapper h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .usuarios-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .usuarios-table th,
+  .usuarios-table td {
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    text-align: left;
+  }
+  
+  .usuarios-table tr:hover {
+    background-color: #f1f3f5;
+  }
+  

@@ -1,0 +1,14 @@
+/* src/admin/detalles_admin/detalles_admin.css */
+.detalles-admin-wrapper {
+    padding: 20px;
+  }
+  
+  .detalles-admin-wrapper h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .detalles-admin-wrapper div {
+    margin-bottom: 10px;
+  }
+  

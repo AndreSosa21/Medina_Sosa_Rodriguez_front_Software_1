@@ -1,4 +1,4 @@
-// Login.tsx
+// src/login/login.tsx
 import React, { useState } from 'react';
 import '../login/login.css'; // Reutilizamos el mismo CSS
 import { useNavigate } from 'react-router-dom';
@@ -12,8 +12,15 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Lógica para autenticar al usuario (aquí puedes agregar la validación)
-    navigate('/transacciones');
+    
+    // Verificar si las credenciales corresponden al admin
+    if (usuario === 'admin' && contraseña === '1234') {
+      // Redirigir al panel de administración
+      navigate('/admin');
+    } else {
+      // Redirigir al área normal de transacciones
+      navigate('/transacciones');
+    }
   };
 
   const goToRegister = () => {

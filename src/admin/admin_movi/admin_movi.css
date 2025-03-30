@@ -1,0 +1,26 @@
+/* src/admin/admin_movi/admin_movi.css */
+.admin-movi-wrapper {
+    padding: 20px;
+  }
+  
+  .admin-movi-wrapper h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .movimientos-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .movimientos-table th,
+  .movimientos-table td {
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    text-align: left;
+  }
+  
+  .movimientos-table tr:hover {
+    background-color: #f1f3f5;
+  }
+  
