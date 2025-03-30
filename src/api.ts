@@ -1,4 +1,4 @@
-const API_URL = 'https://fluxbank-delta.vercel.app';
+export const API_URL = 'https://fluxbank-delta.vercel.app';
 
 // Define an interface for a transaction
 export interface Transaction {

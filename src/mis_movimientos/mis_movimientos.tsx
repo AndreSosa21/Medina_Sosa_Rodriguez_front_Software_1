@@ -1,6 +1,8 @@
+// src/mis_movimientos.tsx
 import React, { useState, useEffect } from 'react';
 import './mis_movimientos.css';
 import MovimientosTable, { Movimiento } from './tabla_movimientos/movimientos_table';
+import { API_URL } from '../api';
 
 import iconTransacciones from '../assets/transacciones.png';
 import iconTarjeta from '../assets/targeta.png';
@@ -11,16 +13,36 @@ import iconCampana from '../assets/campana.png';
 import { useNavigate } from 'react-router-dom';
 
 const MisMovimientos: React.FC = () => {
-  const [selectedProduct, setSelectedProduct] = useState('1234');
+  const [selectedProduct, setSelectedProduct] = useState('');
   const [movimientosData, setMovimientosData] = useState<Movimiento[]>([]);
+  const [products, setProducts] = useState<string[]>([]);  // Para almacenar las cuentas del usuario
   const [profileMenuVisible, setProfileMenuVisible] = useState(false);
   const navigate = useNavigate();
 
-  const handleProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedProduct(e.target.value);
+  // Función para obtener las cuentas del usuario desde el backend
+  const fetchUserAccounts = async () => {
+    try {
+      const response = await fetch(`${API_URL}/userProfile`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al obtener las cuentas del usuario.');
+      }
+
+      const data = await response.json();
+      const userAccounts = data.user.accounts.map((account: any) => account.accountNumber.slice(-4)); // Obtiene solo los últimos 4 dígitos del número de cuenta
+      setProducts(userAccounts);
+      setSelectedProduct(userAccounts[0]);  // Selecciona la primera cuenta por defecto
+    } catch (err) {
+      console.error('Error fetching user accounts:', err);
+    }
   };
 
-  // Función para simular la carga de movimientos dependiendo del producto
+  // Función para obtener los movimientos de la cuenta seleccionada
   const fetchMovimientos = (producto: string) => {
     const movimientos: Movimiento[] = producto === '1234'
       ? [
@@ -67,8 +89,18 @@ const MisMovimientos: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchMovimientos(selectedProduct);
+    fetchUserAccounts();  // Carga las cuentas del usuario al inicio
+  }, []);
+
+  useEffect(() => {
+    if (selectedProduct) {
+      fetchMovimientos(selectedProduct);  // Obtiene los movimientos al seleccionar una cuenta
+    }
   }, [selectedProduct]);
+
+  const handleProductChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedProduct(e.target.value);
+  };
 
   const handleDetallesRedirect = (mov: Movimiento) => {
     navigate(`/detalles/${mov.noAprobacion}`, { state: { movimiento: mov } });
@@ -146,8 +178,11 @@ const MisMovimientos: React.FC = () => {
               value={selectedProduct}
               onChange={handleProductChange}
             >
-              <option value="1234">Cuenta de Ahorros *1234</option>
-              <option value="5678">Cuenta de Ahorros *5678</option>
+              {products.map((product, idx) => (
+                <option key={idx} value={product}>
+                  Cuenta de Ahorros *{product}
+                </option>
+              ))}
             </select>
           </div>
           <div className="table-container">

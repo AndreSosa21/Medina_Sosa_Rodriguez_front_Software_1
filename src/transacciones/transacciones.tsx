@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Transacciones.css';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../api';
 
 import iconTransacciones from '../assets/transacciones.png';
 import iconTarjeta from '../assets/targeta.png';
@@ -14,11 +15,74 @@ const Transacciones: React.FC = () => {
   const [cuentaDestino, setCuentaDestino] = useState('');
   const [tipoCuenta, setTipoCuenta] = useState('');
   const [monto, setMonto] = useState('');
+  const [userAccounts, setUserAccounts] = useState<string[]>([]); // Guardar las cuentas
+  const [balance, setBalance] = useState(0); // Guardar el saldo de la cuenta de origen
   const [profileMenuVisible, setProfileMenuVisible] = useState(false); // Estado para el menú desplegable
   const navigate = useNavigate();
 
-  // Lista de cuentas del usuario (ejemplo)
-  const userAccounts = ['1234-5678-9012-3456', '9876-5432-1098-7654'];
+  // Función para obtener las cuentas del usuario desde el backend
+  const fetchUserAccounts = async () => {
+    try {
+      const response = await fetch(`${API_URL}/userProfile`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al obtener las cuentas del usuario.');
+      }
+
+      const data = await response.json();
+      const userAccounts = data.user.accounts.map((account: any) =>
+        account.accountNumber.slice(-4) // Obtener solo los últimos 4 dígitos del número de cuenta
+      );
+      setUserAccounts(userAccounts);
+      setCuentaOrigen(userAccounts[0]); // Selecciona la primera cuenta por defecto
+      setBalance(data.user.accounts[0].balance); // Establecer el saldo de la primera cuenta
+    } catch (err) {
+      console.error('Error fetching user accounts:', err);
+    }
+  };
+
+  // Función para obtener todos los usuarios registrados
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(`${API_URL}/users`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al obtener los usuarios.');
+      }
+
+      const data = await response.json();
+      return data.map((user: any) => user.accounts.map((account: any) => account.accountNumber));
+    } catch (err) {
+      console.error('Error fetching users:', err);
+      return [];
+    }
+  };
+
+  // Función para verificar si la cuenta de destino es válida
+  const validateCuentaDestino = async () => {
+    const usersAccounts = await fetchUsers(); // Obtener todas las cuentas de los usuarios
+
+    // Buscar si la cuenta destino ingresada existe entre todas las cuentas registradas
+    const isCuentaDestinoValid = usersAccounts.some((accounts: string[]) =>
+      accounts.includes(cuentaDestino.replace(/\D/g, '')) // Eliminar caracteres no numéricos y comparar
+    );
+
+    if (!isCuentaDestinoValid) {
+      alert('Cuenta de destino no encontrada');
+      return false;
+    }
+    return true;
+  };
 
   // Función para formatear la cuenta destino
   const formatCuentaDestino = (value: string) => {
@@ -33,6 +97,27 @@ const Transacciones: React.FC = () => {
     setCuentaDestino(formatted);
   };
 
+  // Función para manejar el envío de la transacción
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Validación de saldo insuficiente
+    if (parseFloat(monto) > balance) {
+      alert('Saldo insuficiente');
+      return;
+    }
+
+    // Verificar si la cuenta de destino es válida
+    const isCuentaDestinoValid = await validateCuentaDestino();
+    if (!isCuentaDestinoValid) {
+      return;
+    }
+
+    // Si pasa todas las validaciones, proceder con la transacción
+    alert('Transacción enviada');
+    // Aquí iría la lógica para hacer la solicitud POST para enviar la transferencia
+  };
+
   // Función para redirigir a la página de Mis Movimientos
   const handleMisMovimientosClick = () => {
     navigate('/movimientos');
@@ -43,6 +128,10 @@ const Transacciones: React.FC = () => {
     localStorage.removeItem('token'); // Elimina el token si es necesario
     navigate('/'); // Redirige al Login
   };
+
+  useEffect(() => {
+    fetchUserAccounts(); // Llamamos a la función para obtener las cuentas al cargar el componente
+  }, []);
 
   return (
     <div className="transacciones-wrapper">
@@ -100,7 +189,7 @@ const Transacciones: React.FC = () => {
       <main className="main-content">
         <h2 className="transacciones-title">Información de la transferencia</h2>
         <hr className="separator" />
-        <form className="form-grid">
+        <form className="form-grid" onSubmit={handleSubmit}>
           <div className="col">
             <label className="label-input">
               Cuenta origen
@@ -113,7 +202,7 @@ const Transacciones: React.FC = () => {
                 <option value="">Seleccione una cuenta</option>
                 {userAccounts.map((account, idx) => (
                   <option key={idx} value={account}>
-                    {account}
+                    *{account}
                   </option>
                 ))}
               </select>
