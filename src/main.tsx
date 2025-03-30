@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
+import AuthLayout from './layout/AuthLayout';
 import Login from './login/login';
 import Register from './register/register';
 import Transacciones from './transacciones/transacciones';
@@ -13,11 +14,14 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <Router>
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      {/* Rutas de autenticación con layout común */}
+      <Route path="/" element={<AuthLayout />}>
+        <Route index element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
+      {/* Resto de la aplicación */}
       <Route path="/transacciones" element={<Transacciones />} />
       <Route path="/movimientos" element={<MisMovimientos />} />
-      {/* Ruta para Detalles del Movimiento */}
       <Route path="/detalles/:id" element={<Detalles />} />
     </Routes>
   </Router>
