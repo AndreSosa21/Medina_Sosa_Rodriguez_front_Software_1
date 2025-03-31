@@ -49,8 +49,9 @@ const Register: React.FC = () => {
         }
 
         const tokenData = await tokenResponse.json();
-        const token = tokenData.access_token || tokenData.accessToken;
+        const token =  tokenData.accessToken;
         localStorage.setItem('token', token);
+        console.log('Token guardado:', token);
         alert('Usuario registrado y token guardado correctamente');
         // Redirige a la pantalla de transacciones
         navigate('/transacciones', { replace: true });

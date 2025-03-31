@@ -8,14 +8,19 @@ const AdminUsuarios: React.FC = () => {
 
   useEffect(() => {
     const fetchUsuarios = async () => {
-      const response = await fetch(`${API_URL}/usuarios`, {
+      const response = await fetch(`${API_URL}/users`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
       });
 
-      const data = await response.json();
-      setUsuariosData(data.usuarios);
+      if (response.ok) {
+        const data = await response.json();
+        setUsuariosData(data.users);
+      } else {
+        // Manejar errores si es necesario
+        console.error('Error al obtener los usuarios');
+      }
     };
 
     fetchUsuarios();
@@ -27,17 +32,27 @@ const AdminUsuarios: React.FC = () => {
       <table className="usuarios-table">
         <thead>
           <tr>
-            <th>Usuario</th>
-            <th>Producto</th>
-            <th>Fecha de Registro</th>
+            <th>Correo Electrónico</th>
+            <th>Cuentas Asociadas</th>
           </tr>
         </thead>
         <tbody>
           {usuariosData.map((usuario, idx) => (
             <tr key={idx}>
-              <td>{usuario.nombre}</td>
-              <td>{usuario.producto ? usuario.producto : 'No tiene'}</td>
-              <td>{usuario.fechaRegistro}</td>
+              <td>{usuario.username}</td>
+              <td>
+                {usuario.accounts.length > 0 ? (
+                  <ul>
+                    {usuario.accounts.map((cuenta: any, index: number) => (
+                      <li key={index}>
+                        {cuenta.accountNumber} - {cuenta.accountType} - Saldo: ${cuenta.balance}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  'No tiene cuentas asociadas'
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
