@@ -9,7 +9,7 @@ import iconSeguridad from '../assets/seguridad.png';
 import iconAudifonos from '../assets/audifonos.png';
 import iconCampana from '../assets/campana.png';
 
-interface DetallesProps {
+interface DetallesProps { 
   onBack?: () => void;
   onMovimientosClick?: () => void;
   onTransaccionesClick?: () => void;

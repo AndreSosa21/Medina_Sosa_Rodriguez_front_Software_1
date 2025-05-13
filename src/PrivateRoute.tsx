@@ -1,22 +1,24 @@
-// src/PrivateRoute.tsx
 import React from 'react';
-import { Route, Navigate, RouteProps } from 'react-router-dom';
-import Error403 from './error/Error403'; // Importamos el componente de error
+import { Navigate, useLocation } from 'react-router-dom';
+import Error403 from './error/Error403';
 
-const getToken = () => {
-  return localStorage.getItem('token');
-};
+interface PrivateRouteProps {
+  element: React.ReactElement;
+}
 
-// PrivateRoute para proteger rutas
-const PrivateRoute: React.FC<RouteProps> = ({ element, ...rest }) => {
-  const isAuthenticated = getToken();  // Verifica si el token existe
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
+  const isAuthenticated = Boolean(localStorage.getItem('token'));
+  const location = useLocation();
 
-  // Si no está autenticado, redirige a la página de error 403
   if (!isAuthenticated) {
+    // Si no está autenticado, mostramos la página de error
     return <Error403 />;
+    // o bien podrías redirigir:
+    // return <Navigate to="/" state={{ from: location }} replace />;
   }
 
-  return <Route {...rest} element={element} />;
+  // Si está autenticado, renderizamos directamente el elemento protegido
+  return element;
 };
 
 export default PrivateRoute;
