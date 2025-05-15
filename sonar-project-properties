@@ -1,0 +1,12 @@
+sonar.organization=${SONAR_ORG}
+sonar.projectKey=${SONAR_PROJECT_KEY}
+sonar.projectName=Frontend
+
+# Código fuentes y tests (TypeScript + TSX)
+sonar.sources=src
+sonar.tests=src
+sonar.test.inclusions=src/**/*.test.ts,src/**/*.test.tsx
+sonar.coverage.exclusions=src/**/*.test.ts,src/**/*.test.tsx
+
+# Cobertura Jest
+sonar.javascript.lcov.reportPaths=coverage/lcov.info
