@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Detalles.css';
+import './detalles.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import iconTransacciones from '../assets/transacciones.png';
