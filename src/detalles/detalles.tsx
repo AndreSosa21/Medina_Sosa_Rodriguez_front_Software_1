@@ -16,7 +16,7 @@ interface DetallesProps {
 }
 
 const Detalles: React.FC<DetallesProps> = ({
-  onBack,
+  
   onMovimientosClick,
   onTransaccionesClick,
 }) => {

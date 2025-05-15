@@ -1,6 +1,5 @@
 // src/test/pages/MisMovimientos.test.tsx
 
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import MisMovimientos from '../../mis_movimientos/mis_movimientos';
