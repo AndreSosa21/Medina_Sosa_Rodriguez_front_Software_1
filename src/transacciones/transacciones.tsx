@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Transacciones.css';
+import './transacciones.css';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../api';
 
