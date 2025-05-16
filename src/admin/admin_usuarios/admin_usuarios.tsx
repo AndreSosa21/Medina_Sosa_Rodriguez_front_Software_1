@@ -1,25 +1,40 @@
-// src/admin/admin_usuarios/admin_usuarios.tsx
+interface Account {
+  accountNumber: string;
+  accountType: string;
+  balance: number;
+}
+
+interface User {
+  username: string;
+  accounts: Account[];
+}
+
+type UsersResponse = { users: User[] };
+
 import React, { useState, useEffect } from 'react';
 import './admin_usuarios.css';
 import { API_URL } from '../../api';
 
 const AdminUsuarios: React.FC = () => {
-  const [usuariosData, setUsuariosData] = useState<any[]>([]);
+  const [usuariosData, setUsuariosData] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchUsuarios = async () => {
-      const response = await fetch(`${API_URL}/users`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      try {
+        const response = await fetch(`${API_URL}/users`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
 
-      if (response.ok) {
-        const data = await response.json();
+        if (!response.ok) {
+          throw new Error('Error al obtener los usuarios');
+        }
+
+        const data: UsersResponse = await response.json();
         setUsuariosData(data.users);
-      } else {
-        // Manejar errores si es necesario
-        console.error('Error al obtener los usuarios');
+      } catch (err) {
+        console.error(err);
       }
     };
 
@@ -37,15 +52,15 @@ const AdminUsuarios: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {usuariosData.map((usuario, idx) => (
-            <tr key={idx}>
+          {usuariosData.map((usuario) => (
+            <tr key={usuario.username}>
               <td>{usuario.username}</td>
               <td>
-                {usuario.accounts.length > 0 ? (
+                {usuario.accounts.length ? (
                   <ul>
-                    {usuario.accounts.map((cuenta: any, index: number) => (
-                      <li key={index}>
-                        {cuenta.accountNumber} - {cuenta.accountType} - Saldo: ${cuenta.balance}
+                    {usuario.accounts.map((cuenta) => (
+                      <li key={cuenta.accountNumber}>
+                        {cuenta.accountNumber} – {cuenta.accountType} – Saldo: ${cuenta.balance}
                       </li>
                     ))}
                   </ul>

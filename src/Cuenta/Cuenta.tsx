@@ -48,6 +48,7 @@ const Cuenta: React.FC = () => {
 
       navigate('/transacciones');
     } catch (err) {
+      console.error(err);
       setError('Hubo un problema al crear la cuenta. Intenta nuevamente.');
     }
   };
