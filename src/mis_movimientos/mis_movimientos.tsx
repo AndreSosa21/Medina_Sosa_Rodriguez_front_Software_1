@@ -162,7 +162,7 @@ const MisMovimientos: React.FC = () => {
             <li onClick={handleTransaccionesRedirect}>
               <img src={iconTransacciones} alt="Transacciones" className="sidebar-icon" />
             </li>
-            <li onClick={() => navigate('/cuenta')}>
+            <li >
               <img src={iconTarjeta} alt="Tarjeta" className="sidebar-icon" />
             </li>
             <li onClick={() => navigate('/movimientos')}>

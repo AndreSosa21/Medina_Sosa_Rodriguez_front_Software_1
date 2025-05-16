@@ -190,7 +190,7 @@ const Transacciones: React.FC = () => {
             <li onClick={() => navigate('/transacciones')}>
               <img src={iconTransacciones} alt="Transacciones" className="sidebar-icon" />
             </li>
-            <li onClick={() => navigate('/cuenta')}>
+            <li >
               <img src={iconTarjeta} alt="Tarjeta" className="sidebar-icon" />
             </li>
             <li onClick={handleMisMovimientosClick}>
