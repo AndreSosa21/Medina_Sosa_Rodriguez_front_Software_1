@@ -42,15 +42,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with:
-          node-version: 20
+        with: { node-version: 20 }
       - run: npm ci
       - run: npm run build
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           start: npm run preview -- --port 4173
-          wait-on: 'tcp:4173'
+          wait-on: http://localhost:4173/index.html
+          wait-on-timeout: 120
 
   sonarcloud:
     needs: [test_build_lint]
