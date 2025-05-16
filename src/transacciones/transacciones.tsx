@@ -1,3 +1,19 @@
+interface Account {
+  accountNumber: string;
+  balance: number;
+}
+
+interface UserProfile {
+  user: {
+    accounts: Account[];
+  };
+}
+
+interface UserListItem {
+  accounts: Account[];
+}
+
+
 import React, { useState, useEffect } from 'react';
 import './transacciones.css';
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +51,8 @@ const Transacciones: React.FC = () => {
       }
 
       const data = await response.json();
-      const userAccounts = data.user.accounts.map((account: any) =>
+      const profile: UserProfile = data;
+      const userAccounts = profile.user.accounts.map((account) =>
         account.accountNumber.slice(-4) // Obtener solo los últimos 4 dígitos del número de cuenta
       );
       setUserAccounts(userAccounts);
@@ -61,7 +78,8 @@ const Transacciones: React.FC = () => {
       }
 
       const data = await response.json();
-      return data.map((user: any) => user.accounts.map((account: any) => account.accountNumber));
+      const users: UserListItem[] = data;
+      return users.map((u) => u.accounts.map((acc) => acc.accountNumber));
     } catch (err) {
       console.error('Error fetching users:', err);
       return [];

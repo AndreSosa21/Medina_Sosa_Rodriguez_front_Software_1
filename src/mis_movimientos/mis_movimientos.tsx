@@ -1,4 +1,11 @@
-// src/mis_movimientos.tsx
+interface Account {
+  accountNumber: string;
+}
+
+interface UserProfile {
+  user: { accounts: Account[] };
+}
+
 import React, { useState, useEffect } from 'react';
 import './mis_movimientos.css';
 import MovimientosTable, { Movimiento } from './tabla_movimientos/movimientos_table';
@@ -34,7 +41,8 @@ const MisMovimientos: React.FC = () => {
       }
 
       const data = await response.json();
-      const userAccounts = data.user.accounts.map((account: any) => account.accountNumber.slice(-4)); // Obtiene solo los últimos 4 dígitos del número de cuenta
+      const profile: UserProfile = data;
+      const userAccounts = profile.user.accounts.map((acc) => acc.accountNumber.slice(-4));
       setProducts(userAccounts);
       setSelectedProduct(userAccounts[0]);  // Selecciona la primera cuenta por defecto
     } catch (err) {

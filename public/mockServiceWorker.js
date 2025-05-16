@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable eslint-comments/disable-enable-pair */
 /* tslint:disable */
 
 /**

@@ -1,27 +1,35 @@
 export const API_URL = 'https://fluxbank-delta.vercel.app';
 
-// Define an interface for a transaction
 export interface Transaction {
-    sourceAccount: string;
-    destinationAccount: string;
-    accountType: string;
-    amount: number;
+  sourceAccount: string;
+  destinationAccount: string;
+  accountType: 'ahorro' | 'corriente';
+  amount: number;
 }
 
-// Function to create a new transaction
-export const createTransaction = async (transactionData: Transaction): Promise<any> => {
-    const response = await fetch(`${API_URL}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(transactionData),
-    });
-    return response.json();
-};
+export interface TransactionCreated extends Transaction {
+  id: string;
+  createdAt: string;
+}
 
-// Function to get all transactions
-export const getTransactions = async (): Promise<any> => {
-    const response = await fetch(`${API_URL}`);
-    return response.json();
-};
+/* POST /transactions → guarda y devuelve la transacción creada */
+export async function createTransaction(
+  tx: Transaction,
+): Promise<TransactionCreated> {
+  const resp = await fetch(`${API_URL}/transactions`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(tx),
+  });
+  if (!resp.ok) throw new Error('Error al crear transacción');
+  return resp.json() as Promise<TransactionCreated>;
+}
 
-
+/* GET /transactions → listado de transacciones del usuario */
+export async function getTransactions(): Promise<TransactionCreated[]> {
+  const resp = await fetch(`${API_URL}/transactions`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+  });
+  if (!resp.ok) throw new Error('Error al obtener transacciones');
+  return resp.json() as Promise<TransactionCreated[]>;
+}
