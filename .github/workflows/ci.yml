@@ -49,9 +49,8 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           start: npm run preview
-          wait-on: 'http://localhost:5173'
+          wait-on: 'http://localhost:4173'
           browser: chrome
-          headless: true
 
   sonarcloud:
     needs: [test_build_lint]
