@@ -51,6 +51,7 @@ jobs:
           start: npm run preview -- --port 4173
           wait-on: http://localhost:4173/index.html
           wait-on-timeout: 120
+          config: baseUrl=http://localhost:4173
 
   sonarcloud:
     needs: [test_build_lint]
